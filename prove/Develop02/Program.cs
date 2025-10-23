@@ -52,6 +52,7 @@ class Journal
         Console.WriteLine("Entry auto-saved!");
     }
     public void DisplayEntries()
+    
     {
         if (entries.Count == 0) { Console.WriteLine("No entries yet."); return; }
         Console.WriteLine("\n--- Journal Entries ---");
