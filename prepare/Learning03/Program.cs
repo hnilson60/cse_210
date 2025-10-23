@@ -12,7 +12,7 @@ class Program
         Console.WriteLine(f2.GetDecimalValue());
         Console.WriteLine(f3.GetFractionString());
         Console.WriteLine(f3.GetDecimalValue());
-        Console.WriteLine(f4.GetFractionString());
+        Console.WriteLine(f4.GetFractionString()); // test
         Console.WriteLine(f4.GetDecimalValue());
         f3.SetTop(6);
         f3.SetBottom(7);
