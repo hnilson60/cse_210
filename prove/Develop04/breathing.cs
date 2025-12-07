@@ -1,9 +1,9 @@
 using System;
 
-public class BreathingActivity : Activity
+public class Breathing : Activity
 {
-    public BreathingActivity()
-        : base("Breathing", "This activity will help you relax by breathing slowly.") { }
+    public Breathing()
+        : base("Breathing", "This will force you to relax by breathing slowly!!.") { }
 
     public override void Start()
     {
@@ -11,7 +11,7 @@ public class BreathingActivity : Activity
         int elapsed = 0;
         while (elapsed < _duration)
         {
-            Console.WriteLine("Breathe in...");
+            Console.WriteLine("Breathe in...dont panik");
             Countdown(2);
             elapsed += 2;
             if (elapsed >= _duration) break;

@@ -20,13 +20,13 @@ public abstract class Activity
         Console.WriteLine(_description);
         Console.Write("how lond do you want to do this activity ");
         int.TryParse(Console.ReadLine(), out _duration);
-        Console.WriteLine("starting");
+        Console.WriteLine("start");
         Countdown(3);
     }
 
     public void EndMessage()
     {
-        Console.WriteLine("\nWell done!");
+        Console.WriteLine("\ngood job");
         thinking(2);
         Console.WriteLine($"You have completed the {_name} Activity for {_duration} seconds.");
         Countdown(3);

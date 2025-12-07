@@ -17,13 +17,13 @@ class Program
             switch (choice)
             {
                 case "1":
-                    activity = new BreathingActivity();
+                    activity = new Breathing();
                     break;
                 case "2":
-                    activity = new ReflectionActivity();
+                    activity = new Reflection();
                     break;
                 case "3":
-                    activity = new ListingActivity();
+                    activity = new Listing();
                     break;
                 case "4":
                     Console.WriteLine("bye");

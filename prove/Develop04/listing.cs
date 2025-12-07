@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class ListingActivity : Activity
+public class Listing : Activity
 {
     private List<string> _prompts = new List<string>
     {
@@ -12,8 +12,8 @@ public class ListingActivity : Activity
         "Whom are some of your personal heroes?"
     };
 
-    public ListingActivity()
-        : base("Listing", "This activity will help you list good things in ur life") { }
+    public Listing()
+        : base("Listing", "This will help you list good things in ur life") { }
 
     public override void Start()
     {
