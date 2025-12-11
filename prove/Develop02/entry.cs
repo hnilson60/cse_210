@@ -2,25 +2,26 @@ using System;
 
 public class Entry
 {
-    public string Date { get; set; }
-    public string Prompt { get; set; }
-    public string Response { get; set; }
+   public string _date;
+    public string _prompt;
+    public string _response;
 
     public Entry(string date, string prompt, string response)
     {
-        Date = date;
-        Prompt = prompt;
-        Response = response;
+        _date = date;
+        _prompt = prompt;
+        _response = response;
     }
 
     public void Display()
     {
-        Console.WriteLine($"Date: {Date}");
-        Console.WriteLine($"Prompt: {Prompt}");
-        Console.WriteLine($"Response: {Response}");
+        Console.WriteLine($"Date: {_date}");
+        Console.WriteLine($"Prompt: {_prompt}");
+        Console.WriteLine($"Response: {_response}");
     }
 
-    public string ToFileString() => $"{Date}|{Prompt}|{Response}";
+    public string ToFileString() => $"{_date}|{_prompt}|{_response}";
+
 
     public static Entry FromFileString(string line)
     {
