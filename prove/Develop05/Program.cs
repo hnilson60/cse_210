@@ -15,7 +15,7 @@ class Program
         bool running = true;
         while (running)
         {
-            Console.WriteLine($"\nScore: {gm.Score}");
+            Console.WriteLine($"\nScore: {gm.wscore()}");
             Console.WriteLine("1. Create Goal");
             Console.WriteLine("2. List Goals");
             Console.WriteLine("3. Record Event");

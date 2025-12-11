@@ -4,7 +4,9 @@ using System.IO;
 
 public class GoalManager
 {
-    public int Score { get; private set; } = 0;
+    private int score = 0;
+    public int wscore() => score;
+    public void setscore(int s) => score = s;
     private List<Goal> _goals = new();
 
     public void AddGoal(Goal g) => _goals.Add(g);
@@ -26,14 +28,14 @@ public class GoalManager
         Console.Write("Choice: ");
         int choice = int.Parse(Console.ReadLine()) - 1;
 
-        Score += _goals[choice].RecordEvent();
+        score += _goals[choice].RecordEvent();
         Console.WriteLine("Event recorded!");
     }
 
     public void Save(string filename)
     {
         using StreamWriter sw = new(filename);
-        sw.WriteLine(Score);
+        sw.WriteLine(score);
         foreach (Goal g in _goals)
             sw.WriteLine(g.SaveData());
     }
@@ -42,7 +44,7 @@ public class GoalManager
     {
         _goals.Clear();
         string[] lines = File.ReadAllLines(filename);
-        Score = int.Parse(lines[0]);
+        score = int.Parse(lines[0]);
 
         for (int i = 1; i < lines.Length; i++)
         {

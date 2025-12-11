@@ -11,8 +11,10 @@ public abstract class Goal
         _points = points;
     }
 
-    public string GetName() => _name;
-    public int GetPoints() => _points;
+    public string GetName()
+    { return _name; }
+    public int GetPoints()
+    { return _points; }
 
     public abstract int RecordEvent();
     public abstract string GetStatus();
