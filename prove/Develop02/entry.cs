@@ -2,7 +2,7 @@ using System;
 
 public class Entry
 {
-   public string _date;
+    public string _date;
     public string _prompt;
     public string _response;
 
@@ -15,18 +15,24 @@ public class Entry
 
     public void Display()
     {
-        Console.WriteLine($"Date: {_date}");
-        Console.WriteLine($"Prompt: {_prompt}");
-        Console.WriteLine($"Response: {_response}");
+        Console.WriteLine("Date: " + _date);
+        Console.WriteLine("Prompt: " + _prompt);
+        Console.WriteLine("Response: " + _response);
     }
 
-    public string ToFileString() => $"{_date}|{_prompt}|{_response}";
-
+    public string ToFileString()
+    {
+        return _date + "|" + _prompt + "|" + _response;
+    }
 
     public static Entry FromFileString(string line)
     {
-        var parts = line.Split('|');
-        if (parts.Length != 3) return null;
+        string[] parts = line.Split('|');
+        if (parts.Length != 3)
+        {
+            return null;
+        }
+
         return new Entry(parts[0], parts[1], parts[2]);
     }
 }
