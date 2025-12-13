@@ -1,66 +1,57 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 public class GoalManager
 {
-    private int score = 0;
-    public int wscore() => score;
-    public void setscore(int s) => score = s;
-    private List<Goal> _goals = new();
+    private int score;
+    private List<Goal> goals;
 
-    public void AddGoal(Goal g) => _goals.Add(g);
-
-    public void ListGoals()
+    public GoalManager()
     {
-        Console.WriteLine("\n--- Hank’s Goals ---");
-        foreach (Goal g in _goals)
-            Console.WriteLine(g.GetStatus());
+        score = 0;
+        goals = new List<Goal>();
     }
 
-    public void RecordEvent()
+    public int GetScore()
     {
-        Console.WriteLine("\nChoose a goal to record:");
-
-        for (int i = 0; i < _goals.Count; i++)
-            Console.WriteLine($"{i + 1}. {_goals[i].GetName()}");
-
-        Console.Write("Choice: ");
-        int choice = int.Parse(Console.ReadLine()) - 1;
-
-        score += _goals[choice].RecordEvent();
-        Console.WriteLine("Event recorded!");
+        return score;
     }
 
-    public void Save(string filename)
+    public void AddGoal(Goal goal)
     {
-        using StreamWriter sw = new(filename);
-        sw.WriteLine(score);
-        foreach (Goal g in _goals)
-            sw.WriteLine(g.SaveData());
+        goals.Add(goal);
     }
 
-    public void Load(string filename)
+    public void ShowGoals()
     {
-        _goals.Clear();
-        string[] lines = File.ReadAllLines(filename);
-        score = int.Parse(lines[0]);
-
-        for (int i = 1; i < lines.Length; i++)
+        Console.WriteLine("\n--- Goals ---");
+        for (int i = 0; i < goals.Count; i++)
         {
-            string[] p = lines[i].Split("|");
-
-            if (p[0] == "Simple")
-                AddGoal(new SimpleGoal(p[1], int.Parse(p[2])));
-            else if (p[0] == "Eternal")
-                AddGoal(new EternalGoal(p[1], int.Parse(p[2])));
-            else if (p[0] == "Checklist")
-            {
-                ChecklistGoal cg = new ChecklistGoal(p[1], int.Parse(p[2]), int.Parse(p[3]), int.Parse(p[5]));
-                typeof(ChecklistGoal).GetField("_count", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                    .SetValue(cg, int.Parse(p[4]));
-                AddGoal(cg);
-            }
+            Console.WriteLine($"{i + 1}. {goals[i].GetStatus()}");
         }
+    }
+
+    public void RecordGoalEvent()
+    {
+        if (goals.Count == 0)
+        {
+            Console.WriteLine("No goals to record.");
+            return;
+        }
+
+        Console.WriteLine("\nSelect a goal to record:");
+        for (int i = 0; i < goals.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {goals[i].GetName()}");
+        }
+
+        int choice;
+        while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > goals.Count)
+            Console.Write("Enter a valid number: ");
+
+        int pointsEarned = goals[choice - 1].RecordEvent();
+        score += pointsEarned;
+
+        Console.WriteLine($"Recorded! You earned {pointsEarned} points.");
     }
 }

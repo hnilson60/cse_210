@@ -1,14 +1,17 @@
 public class SimpleGoal : Goal
 {
-    private bool _isDone = false;
+    private bool completed;
 
-    public SimpleGoal(string name, int points) : base(name, points) {}
+    public SimpleGoal(string name, int points) : base(name, points)
+    {
+        completed = false;
+    }
 
     public override int RecordEvent()
     {
-        if (!_isDone)
+        if (!completed)
         {
-            _isDone = true;
+            completed = true;
             return GetPoints();
         }
         return 0;
@@ -16,11 +19,6 @@ public class SimpleGoal : Goal
 
     public override string GetStatus()
     {
-        return _isDone ? "[X] " + GetName() : "[ ] " + GetName();
-    }
-
-    public override string SaveData()
-    {
-        return $"Simple|{GetName()}|{GetPoints()}|{_isDone}";
+        return completed ? $"[X] {GetName()}" : $"[ ] {GetName()}";
     }
 }

@@ -1,22 +1,17 @@
-using System;
-
 public abstract class Goal
 {
-    private string _name;
-    private int _points;
+    private string name;
+    private int points;
 
     public Goal(string name, int points)
     {
-        _name = name;
-        _points = points;
+        this.name = name;
+        this.points = points;
     }
 
-    public string GetName()
-    { return _name; }
-    public int GetPoints()
-    { return _points; }
+    public string GetName() { return name; }
+    public int GetPoints() { return points; }
 
     public abstract int RecordEvent();
     public abstract string GetStatus();
-    public abstract string SaveData();
 }

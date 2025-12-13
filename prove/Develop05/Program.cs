@@ -6,63 +6,77 @@ class Program
     {
         Console.WriteLine(@"
 =============================
-   H A N K ’ S   G O A L S
+   H A N K'S GOALS TRACKER
 =============================
 ");
 
         GoalManager gm = new GoalManager();
-
         bool running = true;
+
         while (running)
         {
-            Console.WriteLine($"\nScore: {gm.wscore()}");
+            Console.WriteLine($"\nScore: {gm.GetScore()}");
             Console.WriteLine("1. Create Goal");
             Console.WriteLine("2. List Goals");
             Console.WriteLine("3. Record Event");
-            Console.WriteLine("4. Save");
-            Console.WriteLine("5. Load");
-            Console.WriteLine("6. Quit");
+            Console.WriteLine("4. Quit");
             Console.Write("Choose: ");
-            
-            switch (Console.ReadLine())
+
+            string choice = Console.ReadLine();
+
+            switch (choice)
             {
                 case "1": CreateGoal(gm); break;
-                case "2": gm.ListGoals(); break;
-                case "3": gm.RecordEvent(); break;
-                case "4": Console.Write("File: "); gm.Save(Console.ReadLine()); break;
-                case "5": Console.Write("File: "); gm.Load(Console.ReadLine()); break;
-                case "6": running = false; break;
+                case "2": gm.ShowGoals(); break;
+                case "3": gm.RecordGoalEvent(); break;
+                case "4": running = false; break;
+                default: Console.WriteLine("Invalid choice!"); break;
             }
         }
+
+        Console.WriteLine("Goodbye!");
     }
 
     static void CreateGoal(GoalManager gm)
     {
-        Console.WriteLine("\n1. Simple Goal");
+        Console.WriteLine("\nSelect Goal Type:");
+        Console.WriteLine("1. Simple Goal");
         Console.WriteLine("2. Eternal Goal");
         Console.WriteLine("3. Checklist Goal");
         Console.Write("Choice: ");
-        string choice = Console.ReadLine();
+        string typeChoice = Console.ReadLine();
 
         Console.Write("Name: ");
         string name = Console.ReadLine();
 
-        Console.Write("amout of times: ");
-        int pts = int.Parse(Console.ReadLine());
+        Console.Write("Points: ");
+        int pts;
+        while (!int.TryParse(Console.ReadLine(), out pts))
+            Console.Write("Please enter a number: ");
 
-        if (choice == "1")
-            gm.AddGoal(new SimpleGoal(name, pts));
-        else if (choice == "2")
-            gm.AddGoal(new EternalGoal(name, pts));
-        else
+        if (typeChoice == "1")
         {
-            Console.Write("how many times: ");
-            int target = int.Parse(Console.ReadLine());
+            gm.AddGoal(new SimpleGoal(name, pts));
+        }
+        else if (typeChoice == "2")
+        {
+            gm.AddGoal(new EternalGoal(name, pts));
+        }
+        else if (typeChoice == "3")
+        {
+            Console.Write("Target repetitions: ");
+            int target;
+            while (!int.TryParse(Console.ReadLine(), out target))
+                Console.Write("Please enter a number: ");
+
             Console.Write("Bonus: ");
-            int bonus = int.Parse(Console.ReadLine());
+            int bonus;
+            while (!int.TryParse(Console.ReadLine(), out bonus))
+                Console.Write("Please enter a number: ");
+
             gm.AddGoal(new ChecklistGoal(name, pts, target, bonus));
         }
 
-        Console.WriteLine("Incredible!");
+        Console.WriteLine("Goal created successfully!");
     }
 }
